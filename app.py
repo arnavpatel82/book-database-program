@@ -1,6 +1,14 @@
-# create a database
-# books.db
+from models import (Base, session, Book, engine)
 
-# create a model
-#title, author, date_publish, price
+# main menu - add, search, analysis, exit, view
+# add books to db
+# edit books
+# delete books
+# search books
+# data cleaning functions
+
+# loop runs program
+
+if __name__ == '__main__':
+    Base.metadata.create_all(engine)
 
