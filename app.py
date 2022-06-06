@@ -39,9 +39,6 @@ def submenu():
             \ra number from 1-3
             \rpress enter to try again''')
 
-# edit books
-# delete books
-# loop runs program
 
 def clean_date(date_str):
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -166,7 +163,8 @@ def app():
 
             new_book = Book(title=title, author=author, date_published=date, price=price)
             session.add(new_book)
-            session.commit('Book Added')
+            session.commit()
+            print('Book Added')
             time.sleep(1.5)
 
         elif choice == '2':
@@ -210,8 +208,19 @@ def app():
                 time.sleep(1.5)
 
         elif choice == '4':
-            # book analysis
-            pass
+            oldest_book = session.query(Book).order_by(Book.date_published).first()
+            newest_book = session.query(Book).order_by(Book.date_published.desc()).first()
+            total_books = session.query(Book).count()
+            python_books = session.query(Book).filter(Book.title.like('%Python%')).count()
+            print(f'''
+                \n*** BOOK ANAlYSIS ***
+                \rOldest Book: {oldest_book.title}
+                \rNewest Book: {newest_book.title}
+                \rTotal Books: {total_books}
+                \rNumber of Python Books: {python_books}''')
+
+            input('press enter to return to main menu')
+
         else:
             print('Goodbye')
             app_running = False
